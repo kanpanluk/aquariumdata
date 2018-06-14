@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
+    <script src="<?php echo base_url('assets/')?>js/jquery.nicescroll.js"></script>
+    <script src="<?php echo base_url('assets/')?>vue.js"></script>
     <title>Esteem  An Admin Panel Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
     <!-- custom-theme -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +24,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="<?php echo base_url('assets/')?>css/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome-icons -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+
 </head>
 <body>
 <!-- banner -->

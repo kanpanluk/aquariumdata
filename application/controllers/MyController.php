@@ -20,4 +20,6 @@ class MyController extends CI_Controller
         $this->load->view('order/orderpage');
         $this->load->view('footer');
     }
+
+
 }
