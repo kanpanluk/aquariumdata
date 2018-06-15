@@ -21,5 +21,18 @@ class MyController extends CI_Controller
         $this->load->view('footer');
     }
 
+    public function checkorder()
+    {
+        $this->load->view('header');
+        $this->load->view('order/checkorderpage');
+        $this->load->view('footer');
+    }
+
+    public function logout()
+    {
+        $this->session->set_userdata(array('login' => false));
+        redirect('Welcome/index','refresh');
+    }
+
 
 }

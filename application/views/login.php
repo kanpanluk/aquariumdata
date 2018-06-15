@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
+    <script src="<?php echo base_url('assets/')?>js/jquery.nicescroll.js"></script>
+    <script src="<?php echo base_url('assets/')?>vue.js"></script>
     <title>Esteem  An Admin Panel Category Flat Bootstrap Responsive Website Template | Admin Login  :: w3layouts</title>
     <!-- custom-theme -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,23 +48,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //w3_agileits_top_nav-->
 
     <!-- /inner_content-->
+    <div id="lg">
     <div class="inner_content">
         <!-- /inner_content_w3_agile_info-->
         <div class="inner_content_w3_agile_info">
-
 
             <div class="registration admin_agile">
 
                 <div class="signin-form profile admin">
                     <h2>Admin Login</h2>
                     <div class="login-form">
-                        <form action="<?php echo site_url('MyController/index')?>" method="post">
+                        <form action="<?php echo site_url('Welcome/logincheck')?>" method="post">
                             <input type="text" name="name" value="Username" required="">
                             <input type="password" name="password" value="Password" required="">
                             <div class="tp">
-                                <input type="submit" value="LOGIN" >
+                                <input type="submit" value="LOGIN">
                             </div>
-
                         </form>
                     </div>
                     <div class="login-social-grids admin_w3">
@@ -72,18 +73,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <li><a href="#"><i class="fa fa-rss"></i></a></li>
                         </ul>
                     </div>
-
-                    <h6><a href="main-page.html">Back To Home</a><h6>
-
-
+<!--                    <h6><a href="main-page.html">Back To Home</a><h6>-->
                 </div>
-
-
 
             </div>
             <!-- //inner_content_w3_agile_info-->
         </div>
         <!-- //inner_content-->
+    </div>
     </div>
     <!-- banner -->
     <!--copy rights start here-->
@@ -192,7 +189,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
         });
     </script>
-    <script src="<?php echo base_url('assets/')?>js/jquery.nicescroll.js"></script>
+
     <script src="<?php echo base_url('assets/')?>js/scripts.js"></script>
 
     <script type="text/javascript" src="<?php echo base_url('assets/')?>js/bootstrap-3.1.1.min.js"></script>

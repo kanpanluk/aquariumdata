@@ -4,6 +4,7 @@ class InsertModel extends CI_Model{
     {
         if(! $this->session->userdata('requestbill_pk') ) {
             $dat = array(
+                'staff_pk' => $this->session->userdata('staff_pk'),
                 'requestbill_status' => false,
                 'requestbill_buystatus' => false
             );
@@ -29,7 +30,6 @@ class InsertModel extends CI_Model{
     function addnewBill()
     {
         $this->session->unset_userdata(array('requestbill_pk'));
-        $this->session->sess_destroy();
     }
 
 }

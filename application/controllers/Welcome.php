@@ -20,6 +20,30 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('login');
+        if($this->session->userdata('login')){
+            redirect('MyController/index','refresh');
+        }
+	    else $this->load->view('login');
 	}
+
+    public function logincheck()
+    {
+        $name = $this->input->post('name');
+        $password = $this->input->post('password');
+
+        $check = $this->QueryJSONModel->logincheck($name,$password);
+
+        if($check){
+
+            redirect('MyController/index','refresh');
+        }
+        else{
+            echo "<script>alert('Wrong Username or Password');</script>";
+            redirect('Welcome/index','refresh');
+
+        }
+
+    }
+
+
 }

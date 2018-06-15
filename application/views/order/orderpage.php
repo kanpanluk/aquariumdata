@@ -30,9 +30,12 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    <div>
-                        <label>ชื่อสินค้า</label><br>
-                        <input type="text" v-model="name">
+                    <div class="form-group">
+                        <label for="sel1">เลือกสินค้า:</label>
+                        <select  id="sel1">
+                            <option></option>
+
+                        </select>
                     </div>
 
                     <div>
@@ -78,6 +81,7 @@
         el : "#item" ,
         data : {
             items : [] ,
+            accs : [] ,
             item_pk : "",
             name : "" ,
             price : "" ,
@@ -90,6 +94,9 @@
             var self=this;
             $.getJSON("<?php echo site_url('QueryJSON/jsonEncodeItems')?>",function (data) {
                 self.items = data ;
+            })
+            $.getJSON("<?php echo site_url('QueryJSON/jsonEncodeAccs')?>",function (data) {
+                self.accs = data ;
             })
         } ,
         methods : {
