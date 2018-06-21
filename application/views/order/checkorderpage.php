@@ -20,12 +20,12 @@
                         <th>{{item.requestbill_status}}</th>
                         <th>{{item.requestbill_buystatus}}</th>
                         <th>
-                            <button v-on:click="view(item.requestbill_pk)" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            <button v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
                                 ดูสินค้า
                             </button>
                         </th>
                         <th>
-                            <button v-on:click="del(item.requestbill_pk)" class="btn btn-primary" >
+                            <button v-on:click="del(item.requestbill_pk)" class="btn btn-danger" >
                                 ลบ
                             </button>
                         </th>
@@ -45,8 +45,8 @@
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Modal Heading</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">สินค้าในบิล</h4>
+
                     </div>
 
                     <!-- Modal body -->
@@ -65,29 +65,30 @@
 
                             <tr v-for="item in items">
                                 <th>{{item.name}}</th>
-                                <th>{{item.price}}</th>
                                 <th>{{item.item_number}}</th>
+                                <th>{{item.price}}</th>
                                 <th>{{item.item_place}}</th>
                                 <th>{{item.item_before}}</th>
-                                <th><button v-on:click="edit(item.item_pk,item.name,item.price,item.item_number,item.item_place,item.item_before)" >แก้ไข</button></th>
-                                <th><button v-on:click="delitem(item.item_pk)">ลบ</button></th>
+                                <th><button class="btn btn-primary" v-on:click="edit(item.item_pk,item.name,item.price,item.item_number,item.item_place,item.item_before)" >แก้ไข</button></th>
+                                <th><button class="btn btn-danger" v-on:click="delitem(item.item_pk)">ลบ</button></th>
                             </tr>
                         </table>
 
                         <div id="edit" class="form-group">
-                            <div>
-                                <label>ชื่อสินค้า</label><br>
-                                <input type="text" v-model="name" >
-                            </div>
+                            <span>สินค้าที่เลือก:</span>
+                            <select v-model="name">
+                                <option disabled value="">เลือกสินค้า</option>
+                                <option v-for="acc in accs">{{acc.acc_name}}</option>
+                            </select>
 
                             <div>
                                 <label>จำนวน</label><br>
-                                <input type="text" v-model="price">
+                                <input type="text" v-model="item_number">
                             </div>
 
                             <div>
                                 <label>ราคา</label><br>
-                                <input type="text" v-model="item_number">
+                                <input type="text" v-model="price">
                             </div>
 
                             <div>
@@ -100,14 +101,14 @@
                             </div>
                             <br>
                             <button id="insert" v-on:click="insert()">เพิ่มสินค้า</button>
-                            <button id="edit" v-on:click="update()">แก้ไข</button>
+                            <button type="button" class="btn btn-primary"id="edit" v-on:click="update()">แก้ไข</button>
 
                         </div>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button v-on:click="billdone()" type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                     </div>
 
                 </div>
@@ -130,29 +131,41 @@
         data : {
             requestbills : [] ,
             items : [],
-            requestbill_pk : ""
+            accs : [] ,
+            requestbill_pk : "" ,
+            item_pk : "" ,
+            name: "" ,
+            price: "" ,
+            item_number: "" ,
+            item_place: "" ,
+            item_before: "" ,
+
+
         } ,
         mounted : function () {
             var self=this;
             $.getJSON("<?php echo site_url('QueryJSON/jsonEncodeRequestbills')?>",function (data) {
                 self.requestbills = data ;
             })
+            $.getJSON("<?php echo site_url('QueryJSON/jsonEncodeAccs')?>",function (data) {
+                self.accs = data ;
+            })
 
         } ,
         methods : {
-            
-            view : function (requestbill_pk) {
-//                alert(requestbill_pk);
-                $.post("<?php echo site_url('QueryJSON/jsonEncodeItemsfromBill')?>",{requestbill_pk:requestbill_pk});
 
+            view : function (requestbill_pk) {
+
+                $.post("<?php echo site_url('QueryJSON/jsonEncodeItemsfromBill')?>",{requestbill_pk:requestbill_pk});
+                alert("ดูสินค้า");
                 var self=this;
                 $.getJSON("<?php echo site_url('QueryJSON/jsonEncodeItems')?>",function (data) {
                     self.items = data ;
-
                 });
 
             } ,
             del : function (requestbill_pk) {
+                alert("ทำการลบใบสั่งนี้");
                 $.post("<?php echo site_url('DeleteData/deleterequestbills')?>",{requestbill_pk:requestbill_pk});
                 location.reload();
             } ,
@@ -177,9 +190,15 @@
             } ,
 
             update : function () {
+
                 $.post("<?php echo site_url('UpdateData/updateitems')?>",{item_pk:this.item_pk,name:this.name,price:this.price,item_number:this.item_number,item_place:this.item_place,item_before:this.item_before});
                 location.reload();
-            }
+            } ,
+            billdone : function () {
+
+                $.post("<?php echo site_url('InsertData/getbills')?>");
+
+            } ,
 
 
         }

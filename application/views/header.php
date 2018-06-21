@@ -45,7 +45,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <ul class="gn-submenu">
                                     <li class="mini_list_agile"><a href="<?php echo site_url('MyController/order')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>สั่งชื้อสินค้า</a></li>
                                     <li class="mini_list_agile"><a href="<?php echo site_url('MyController/checkorder')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>ตรวจสอบสถานะบิล</a></li>
-                                    <li class="mini_list_w3"><a href="grids.html"> <i class="fa fa-caret-right" aria-hidden="true"></i> ตรวจสอบสินค้า</a></li>
+                                    <li class="mini_list_agile"><a href="<?php echo site_url('MyController/confirmbills')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>ยืนยันใบสั่งซื้อสินค้า</a></li>
+                                    <li class="mini_list_agile"><a href="<?php echo site_url('MyController/confirmbuyeditems')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>ยืนยันการซื้อสินค้า</a></li>
+                                    <li class="mini_list_agile"><a href="<?php echo site_url('MyController/acceptitem')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>ยืนยันการรับสินค้า</a></li>
+
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-files-o" aria-hidden="true"></i>ประกันสินค้า<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                <ul class="gn-submenu">
+                                    <li class="mini_list_agile"><a href="<?php echo site_url('MyController/claim')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>เพิ่มใบประกันสินค้า</a></li>
+                                    <li class="mini_list_agile"><a href="<?php echo site_url('MyController/confirmclaim')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>ยืนยันใบประกันสินค้า</a></li>
+
                                 </ul>
                             </li>
                             <li>

@@ -28,4 +28,28 @@ class QueryJSON extends CI_Controller
         echo json_encode($this->QueryJSONModel->showaccs());
     }
 
+    function jsonEncodeRequestbillsBuyTrue()
+    {
+        echo json_encode($this->QueryJSONModel->showbuyedbill());
+    }
+
+    function jsonEncodeUnconfirmbills()
+    {
+        echo json_encode($this->QueryJSONModel->showunconfirmbills());
+    }
+
+    function jsonEncodeConfirmbuyeditems()
+    {
+        echo json_encode($this->QueryJSONModel->showconfirmbuyeditems());
+    }
+
+    function jsonEncodeClaimitem()
+    {
+        echo json_encode($this->QueryJSONModel->showclaimitem());
+    }
+
+    function jsonEncodeClaims()
+    {
+        echo json_encode($this->QueryJSONModel->showclaims());
+    }
 }

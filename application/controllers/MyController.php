@@ -28,6 +28,41 @@ class MyController extends CI_Controller
         $this->load->view('footer');
     }
 
+    public function acceptitem()
+    {
+        $this->load->view('header');
+        $this->load->view('order/acceptitem');
+        $this->load->view('footer');
+    }
+    public function confirmbills()
+    {
+        $this->load->view('header');
+        $this->load->view('order/confirmbills');
+        $this->load->view('footer');
+    }
+
+    public function confirmbuyeditems()
+    {
+        $this->load->view('header');
+        $this->load->view('order/confirmbuyeditems');
+        $this->load->view('footer');
+    }
+
+    public function claim()
+    {
+        $this->load->view('header');
+        $this->load->view('claim');
+        $this->load->view('footer');
+    }
+
+    public function confirmclaim()
+    {
+        $this->load->view('header');
+        $this->load->view('confirmclaim');
+        $this->load->view('footer');
+
+    }
+
     public function logout()
     {
         $this->session->set_userdata(array('login' => false));

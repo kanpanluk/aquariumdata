@@ -1,5 +1,5 @@
 <div class="inner_content_w3_agile_info">
-
+<?php //echo $this->session->userdata('department_pk')?>
     <div id="item">
 
         <div class="row">
@@ -18,34 +18,37 @@
 
                     <tr v-for="item in items">
                         <th>{{item.name}}</th>
-                        <th>{{item.price}}</th>
                         <th>{{item.item_number}}</th>
+                        <th>{{item.price}}</th>
                         <th>{{item.item_place}}</th>
                         <th>{{item.item_before}}</th>
-                        <th><button v-on:click="edit(item.item_pk,item.name,item.price,item.item_number,item.item_place,item.item_before)">แก้ไข</button></th>
-                        <th><button v-on:click="del(item.item_pk)">ลบ</button></th>
+                        <th><button class="btn btn-primary" v-on:click="edit(item.item_pk,item.name,item.price,item.item_number,item.item_place,item.item_before)">แก้ไข</button></th>
+                        <th><button class="btn btn-danger" v-on:click="del(item.item_pk)">ลบ</button></th>
                     </tr>
                 </table>
             </div>
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    <div class="form-group">
-                        <label for="sel1">เลือกสินค้า:</label>
-                        <select  id="sel1">
-                            <option></option>
+            <div class="col-md-4" >
+                <div class="form-group" >
 
-                        </select>
+
+                    <div>
+                        <label>สินค้าที่เลือก</label><br>
+                        <input v-model="name" type=”text” list=”idOfDatalist” />
+                        <datalist id=”idOfDatalist”>
+                            <option v-for="acc in accs">{{acc.acc_name}}</option>
+                        </datalist>
                     </div>
+
 
                     <div>
                         <label>จำนวน</label><br>
-                        <input type="text" v-model="price">
+                        <input type="text" v-model="item_number">
                     </div>
 
                     <div>
                         <label>ราคา</label><br>
-                        <input type="text" v-model="item_number">
+                        <input type="text" v-model="price">
                     </div>
 
                     <div>
@@ -57,15 +60,15 @@
                         <input type="date" v-model="item_before">
                     </div>
                     <br>
-                    <button id="insert" v-on:click="insert()">เพิ่มสินค้า</button>
-                    <button id="edit" v-on:click="update()">แก้ไข</button>
+                    <button type="button" class="btn btn-light" id="insert" v-on:click="insert()">เพิ่มสินค้า</button>
+                    <button type="button" class="btn btn-primary" id="edit" v-on:click="update()">แก้ไข</button>
 
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <button id="billdone" v-on:click="billdone()">บิลเสร็จสิ้น</button>
+                <button type="button" class="btn btn-light" id="billdone" v-on:click="billdone()">บิลเสร็จสิ้น</button>
             </div>
         </div>
     </div>
@@ -87,7 +90,8 @@
             price : "" ,
             item_number : "" ,
             item_place : "" ,
-            item_before : ""
+            item_before : "" ,
+            department_pk : ""
 
         } ,
         mounted : function () {
@@ -101,8 +105,23 @@
         } ,
         methods : {
             insert : function () {
-                $.post("<?php echo site_url('InsertData/getitems')?>",{name:this.name,price:this.price,item_number:this.item_number,item_place:this.item_place,item_before:this.item_before});
-                location.reload();
+
+                if(this.name == "")
+                {
+                    alert('กรุณาใส่ชื่อสินค้า');
+                }
+                else if(this.item_number < 1 )
+                {
+                    alert('จำนวนสินค้าไม่ถูกต้อง');
+                }
+                else if(item.price <0){
+                    alert('ราคาสินค้าไม่ถูกต้อง');
+                }
+                else
+                {
+                    $.post("<?php echo site_url('InsertData/getitems')?>",{name:this.name,price:this.price,item_number:this.item_number,item_place:this.item_place,item_before:this.item_before});
+                    location.reload();
+                }
             } ,
 
             edit : function (item_pk,name,price,item_number,item_place,item_before) {
@@ -119,8 +138,28 @@
             } ,
 
             update : function () {
-                $.post("<?php echo site_url('UpdateData/updateitems')?>",{item_pk:this.item_pk,name:this.name,price:this.price,item_number:this.item_number,item_place:this.item_place,item_before:this.item_before});
-                location.reload();
+                if(this.name == "")
+                {
+                    alert('กรุณาใส่ชื่อสินค้า');
+                }
+                else if(this.item_number < 1 )
+                {
+                    alert('จำนวนสินค้าไม่ถูกต้อง');
+                }
+                else if(item.price <0){
+                    alert('ราคาสินค้าไม่ถูกต้อง');
+                }
+                else {
+                    $.post("<?php echo site_url('UpdateData/updateitems')?>", {
+                        item_pk: this.item_pk,
+                        name: this.name,
+                        price: this.price,
+                        item_number: this.item_number,
+                        item_place: this.item_place,
+                        item_before: this.item_before
+                    });
+                    location.reload();
+                }
             } ,
 
             del : function (item_pk) {

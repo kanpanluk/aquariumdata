@@ -13,8 +13,13 @@ class DeleteData extends CI_Controller{
     {
         $requestbill_pk = $this->input->post('requestbill_pk');
 
+        $this->db->where('requestbill_pk',$requestbill_pk)->delete('buybills');
+        $this->db->where('requestbill_pk',$requestbill_pk)->delete('acceptbill');
+        $this->db->where('requestbill_pk',$requestbill_pk)->delete('items');
         $this->db->where('requestbill_pk',$requestbill_pk)->delete('requestbills');
-        $this->db->from('items')->where('requestbill_pk',$requestbill_pk)->delete('items');
+
+        $this->session->unset_userdata(array('requestbill_pk'));
+
         redirect('MyController/checkorder','refresh');
         exit();
     }
