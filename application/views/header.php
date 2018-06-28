@@ -39,12 +39,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <nav class="gn-menu-wrapper">
                     <div class="gn-scroller scrollbar1">
                         <ul class="gn-menu agile_menu_drop">
-                            <li><a href="<?php echo site_url('MyController/index')?>"> <i class="fa fa-tachometer"></i> หน้าหลัก</a></li>
+                            <li><a href="<?php echo site_url('MyController/index')?>"> <i class="fa fa-tachometer"></i> หน้าหลัก แผนก <?php echo $this->session->userdata('department_id'); ?></a></li>
                             <li>
                                 <a href="#"><i class="fa fa-cogs" aria-hidden="true"></i> สั่งชื้อ <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                 <ul class="gn-submenu">
                                     <li class="mini_list_agile"><a href="<?php echo site_url('MyController/order')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>สั่งชื้อสินค้า</a></li>
                                     <li class="mini_list_agile"><a href="<?php echo site_url('MyController/checkorder')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>ตรวจสอบสถานะบิล</a></li>
+                                    <li class="mini_list_agile"><a href="<?php echo site_url('MyController/fromstocks')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>ตรวจสินค้าในสต๊อก</a></li>
                                     <li class="mini_list_agile"><a href="<?php echo site_url('MyController/confirmbills')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>ยืนยันใบสั่งซื้อสินค้า</a></li>
                                     <li class="mini_list_agile"><a href="<?php echo site_url('MyController/confirmbuyeditems')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>ยืนยันการซื้อสินค้า</a></li>
                                     <li class="mini_list_agile"><a href="<?php echo site_url('MyController/acceptitem')?>"><i class="fa fa-caret-right" aria-hidden="true"></i>ยืนยันการรับสินค้า</a></li>

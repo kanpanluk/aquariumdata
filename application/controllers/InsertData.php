@@ -42,4 +42,15 @@ class InsertData extends CI_Controller{
         exit();
     }
 
+    function getstocks()
+    {
+        $name = $this->input->post('name');
+        $item_number = $this->input->post('item_number');
+
+        $this->InsertModel->addstock($name,$item_number);
+        redirect('MyController/confirmbuyeditems','refresh');
+        exit();
+
+    }
+
 }

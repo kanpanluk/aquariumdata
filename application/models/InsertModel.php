@@ -45,7 +45,7 @@ class InsertModel extends CI_Model{
             $data = array(
 
                 'acc_name'=>$name,
-                'department_pk'=>0
+                'department_pk'=>$this->session->userdata('department_pk')
 
             );
 
@@ -94,6 +94,48 @@ class InsertModel extends CI_Model{
 
         $this->db->insert('claims',$data);
 
+    }
+
+    function addstock($name,$item_number)
+    {
+        $table = $this->db->select('*')
+            ->from('accs a')
+            ->join('items i','i.name = a.acc_name')
+            ->where('i.name',$name)
+            ->get()->result();
+
+        foreach ($table as $item)
+        {
+            $acc_pk = $item->acc_pk ;
+        }
+
+        $data = array(
+            'acc_pk' => $acc_pk ,
+            'number' => $item_number
+        );
+
+        $this->db->insert('stocks_in',$data);
+
+        $table = $this->db->select('*')
+            ->from('stocks')
+            ->where('acc_pk',$acc_pk)
+            ->get()->result();
+
+        foreach ($table as $item)
+        {
+            $number = $item->number ;
+        }
+
+        if($table)
+        {
+            $this->db->set('number', $number+$item_number, false)
+                ->where('acc_pk', $acc_pk)
+                ->update('stocks');
+        }
+        else
+        {
+            $this->db->insert('stocks',$data);
+        }
     }
 
 }

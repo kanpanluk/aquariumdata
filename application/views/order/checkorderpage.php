@@ -50,59 +50,80 @@
                     </div>
 
                     <!-- Modal body -->
-                    <div class="modal-body">
-                        <table class="table" >
-                            <tr>
-                                <th>ชื่อสินค้า</th>
-                                <th>จำนวน</th>
-                                <th>ราคา</th>
-                                <th>สถานที่</th>
-                                <th>เวลาที่ต้องการ</th>
-                                <th>แก้ไข</th>
-                                <th>ลบ</th>
+                    <div class="row">
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                <table class="table" >
+                                    <tr>
+                                        <th>ชื่อสินค้า</th>
+                                        <th>จำนวน</th>
+                                        <th>ราคา</th>
+                                        <th>สถานที่</th>
+                                        <th>เวลาที่ต้องการ</th>
+                                        <th>หมายเหตุ</th>
+                                        <th>แก้ไข</th>
+                                        <th>ลบ</th>
 
-                            </tr>
+                                    </tr>
 
-                            <tr v-for="item in items">
-                                <th>{{item.name}}</th>
-                                <th>{{item.item_number}}</th>
-                                <th>{{item.price}}</th>
-                                <th>{{item.item_place}}</th>
-                                <th>{{item.item_before}}</th>
-                                <th><button class="btn btn-primary" v-on:click="edit(item.item_pk,item.name,item.price,item.item_number,item.item_place,item.item_before)" >แก้ไข</button></th>
-                                <th><button class="btn btn-danger" v-on:click="delitem(item.item_pk)">ลบ</button></th>
-                            </tr>
-                        </table>
-
-                        <div id="edit" class="form-group">
-                            <span>สินค้าที่เลือก:</span>
-                            <select v-model="name">
-                                <option disabled value="">เลือกสินค้า</option>
-                                <option v-for="acc in accs">{{acc.acc_name}}</option>
-                            </select>
-
-                            <div>
-                                <label>จำนวน</label><br>
-                                <input type="text" v-model="item_number">
+                                    <tr v-for="item in items">
+                                        <th>{{item.name}}</th>
+                                        <th>{{item.item_number}}</th>
+                                        <th>{{item.price}}</th>
+                                        <th>{{item.item_place}}</th>
+                                        <th>{{item.item_before}}</th>
+                                        <th><button class="btn btn-secondary" v-on:click="viewnote(item.item_pk,item.requestbill_pk)" >ดูหมายเหตุ</button></th>
+                                        <th><button class="btn btn-primary" v-on:click="edit(item.item_pk,item.name,item.price,item.item_number,item.item_place,item.item_before)" >แก้ไข</button></th>
+                                        <th><button class="btn btn-danger" v-on:click="delitem(item.item_pk)">ลบ</button></th>
+                                    </tr>
+                                </table>
                             </div>
 
-                            <div>
-                                <label>ราคา</label><br>
-                                <input type="text" v-model="price">
+                            <div class="col-md-6">
+                                <div id="edit" class="form-group">
+                                    <span>สินค้าที่เลือก:</span>
+                                    <select v-model="name">
+                                        <option disabled value="">เลือกสินค้า</option>
+                                        <option v-for="acc in accs">{{acc.acc_name}}</option>
+                                    </select>
+
+                                    <div>
+                                        <label>จำนวน</label><br>
+                                        <input type="text" v-model="item_number">
+                                    </div>
+
+                                    <div>
+                                        <label>ราคา</label><br>
+                                        <input type="text" v-model="price">
+                                    </div>
+
+                                    <div>
+                                        <label>สถานที่</label><br>
+                                        <input type="text" v-model="item_place">
+                                    </div>
+                                    <div>
+                                        <label>เวลาที่ต้องการ</label><br>
+                                        <input type="date" v-model="item_before">
+                                    </div>
+                                    <br>
+                                    <button type="button" class="btn btn-primary"id="edit" v-on:click="update()">แก้ไข</button>
+
+                                </div>
                             </div>
 
-                            <div>
-                                <label>สถานที่</label><br>
-                                <input type="text" v-model="item_place">
-                            </div>
-                            <div>
-                                <label>เวลาที่ต้องการ</label><br>
-                                <input type="date" v-model="item_before">
-                            </div>
-                            <br>
-                            <button id="insert" v-on:click="insert()">เพิ่มสินค้า</button>
-                            <button type="button" class="btn btn-primary"id="edit" v-on:click="update()">แก้ไข</button>
-
+<!--                            <div class="col-md-6">-->
+<!---->
+<!--                                <table class="table" >-->
+<!--                                    <tr>-->
+<!--                                        <th>หมายเหตุ</th>-->
+<!--                                    </tr>-->
+<!---->
+<!--                                    <tr v-for="i in note">-->
+<!--                                        <th>{{i.note_note}}</th>-->
+<!--                                        </tr>-->
+<!--                                </table>-->
+<!---->
+<!--                            </div>-->
                         </div>
                     </div>
 
@@ -132,6 +153,7 @@
             requestbills : [] ,
             items : [],
             accs : [] ,
+            note : [] ,
             requestbill_pk : "" ,
             item_pk : "" ,
             name: "" ,
@@ -139,6 +161,7 @@
             item_number: "" ,
             item_place: "" ,
             item_before: "" ,
+
 
 
         } ,
@@ -150,6 +173,10 @@
             $.getJSON("<?php echo site_url('QueryJSON/jsonEncodeAccs')?>",function (data) {
                 self.accs = data ;
             })
+            $.getJSON("<?php echo site_url('QueryJSON/jsonEncodeNotes')?>",function (data) {
+                self.note = data
+            });
+
 
         } ,
         methods : {
@@ -199,6 +226,18 @@
                 $.post("<?php echo site_url('InsertData/getbills')?>");
 
             } ,
+
+            viewnote : function (item_pk,requestbill_pk) {
+                for(var i=0; i < this.note.length; i++) {
+                        if(this.note[i].note_note && this.note[i].item_pk == item_pk && this.note[i].requestbill_pk == requestbill_pk){
+                            alert(this.note[i].note_note);
+                        }
+                        else{
+                            alert('ไม่มีหมายเหตุ');
+                        }
+                }
+
+            }
 
 
         }

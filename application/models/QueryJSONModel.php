@@ -14,6 +14,7 @@ class QueryJSONModel extends CI_Model{
 
     function logincheck($name,$password)
     {
+
         $check = $this->db->select('staff_name','staff_password')->from('staffs')->where('staff_name',$name)->where('staff_password',$password)->get()->result();
 
         if($check){
@@ -21,6 +22,14 @@ class QueryJSONModel extends CI_Model{
             foreach ($data as $item){
                 $this->session->set_userdata(array('staff_pk' => $item->staff_pk));
                 $this->session->set_userdata(array('department_pk' => $item->department_pk));
+
+            }
+            $department_id = $this->db->select('*')
+                ->from('departments')
+                ->where('department_pk',$this->session->userdata('department_pk'))->get()->result();
+
+            foreach ( $department_id as $item){
+                $this->session->set_userdata(array('department_id' => $item->department_id));
             }
 
             $this->session->set_userdata(array('login' => true));
@@ -31,7 +40,8 @@ class QueryJSONModel extends CI_Model{
     }
 
     function showaccs(){
-        return $this->db->select('*')->from('accs')->where('department_pk',$this->session->userdata('department_pk'))->get()->result();
+        return $this->db->select('*')
+            ->from('accs')->get()->result();
     }
 
     function showbuyedbill()
@@ -53,6 +63,7 @@ class QueryJSONModel extends CI_Model{
     {
         return $this->db->select('*')->from('requestbills')
             ->where('requestbill_buystatus',false)
+            ->where('requestbill_status',true)
             ->get()->result();
     }
 
@@ -84,6 +95,22 @@ class QueryJSONModel extends CI_Model{
             ->join('items i','c.item_pk = i.item_pk')
             ->where('i.claim_status',true)
             ->group_by('i.item_pk')
+            ->get()->result();
+    }
+
+    function showstocks()
+    {
+        return $this->db->select('*')
+            ->from('stocks s')
+            ->join('accs a','a.acc_pk = s.acc_pk')
+            ->where('department_pk',$this->session->userdata('department_pk'))
+            ->get()->result();
+    }
+
+    function shownotes()
+    {
+        return $this->db->select('*')
+            ->from('note')
             ->get()->result();
     }
 }

@@ -43,12 +43,12 @@
 
                     <div>
                         <label>จำนวน</label><br>
-                        <input type="text" v-model="item_number">
+                        <input type="number" min="1" v-model="item_number">
                     </div>
 
                     <div>
                         <label>ราคา</label><br>
-                        <input type="text" v-model="price">
+                        <input type="number" min="0" v-model="price">
                     </div>
 
                     <div>

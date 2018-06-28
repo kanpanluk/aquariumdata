@@ -48,6 +48,13 @@ class MyController extends CI_Controller
         $this->load->view('footer');
     }
 
+    public function fromstocks()
+    {
+        $this->load->view('header');
+        $this->load->view('order/fromstocks');
+        $this->load->view('footer');
+    }
+
     public function claim()
     {
         $this->load->view('header');
@@ -62,6 +69,7 @@ class MyController extends CI_Controller
         $this->load->view('footer');
 
     }
+
 
     public function logout()
     {

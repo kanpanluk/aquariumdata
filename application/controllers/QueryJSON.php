@@ -52,4 +52,16 @@ class QueryJSON extends CI_Controller
     {
         echo json_encode($this->QueryJSONModel->showclaims());
     }
+
+    function jsonEncodeStocks()
+    {
+        echo json_encode($this->QueryJSONModel->showstocks());
+
+    }
+
+    function jsonEncodeNotes ()
+    {
+        echo json_encode($this->QueryJSONModel->shownotes());
+    }
+
 }

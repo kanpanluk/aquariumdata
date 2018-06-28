@@ -58,4 +58,14 @@ class UpdateData extends CI_Controller{
         redirect('MyController/confirmclaim','refresh');
         exit();
     }
+
+    function getstocks()
+    {
+        $acc_name = $this->input->post('acc_name');
+        $item_pk = $this->input->post('item_pk');
+        $item_number = $this->input->post('item_number');
+
+        $this->UpdateModel->updatestocks($acc_name,$item_pk,$item_number);
+
+    }
 }

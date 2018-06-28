@@ -167,6 +167,7 @@
             } ,
 
             update : function () {
+
                 if(this.buybill_price == "")
                 {
                     alert("กรุณาใส่ราคาสินค้า");
@@ -177,7 +178,11 @@
                 }
                 else
                 {
-                    $.post("<?php echo site_url('UpdateData/confirmBuyeditems')?>",{buybill_time:this.buybill_time,buybill_price:this.buybill_price});
+
+                    $.post("<?php echo site_url('UpdateData/confirmBuyeditems')?>",{buybill_time:this.buybill_time,buybill_price:this.buybill_price,items:this.items});
+                    for (var i in this.items){
+                        $.post("<?php echo site_url('InsertData/getstocks')?>",{name:this.items[i].name,item_number:this.items[i].item_number});
+                    }
                     location.reload();
                 }
 
