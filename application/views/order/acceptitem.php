@@ -57,8 +57,8 @@
 
                             <tr v-for="item in items">
                                 <th>{{item.name}}</th>
-                                <th>{{item.price}}</th>
                                 <th>{{item.item_number}}</th>
+                                <th>{{item.price}}</th>
                                 <th>{{item.item_place}}</th>
                                 <th>{{item.item_before}}</th>
                             </tr>

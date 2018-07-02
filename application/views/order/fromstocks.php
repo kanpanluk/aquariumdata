@@ -103,7 +103,7 @@
                                         <input type="hidden" v-model="requestbill_pk">
                                     </div>
                                     <div>
-                                        <input type="text" v-model="item_number_check">
+                                        <input type="hidden" v-model="item_number_check">
                                     </div>
                                     <br>
                                     <button id="edit" type="button" class="btn btn-primary" v-on:click="knote()">ตกลง
