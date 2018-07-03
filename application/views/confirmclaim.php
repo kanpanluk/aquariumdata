@@ -5,7 +5,7 @@
         <div class="row">
             <div id="table" class="col-md-8">
                 <table class="table" >
-                    <tr>
+                    <tr class="warning">
                         <th>หมายเลขสินค้า</th>
                         <th>จำนวนครั้งที่ส่งประกัน</th>
                         <th>ยืนยันใบประกันสินค้า</th>

@@ -34,7 +34,7 @@ class Welcome extends CI_Controller {
         $check = $this->QueryJSONModel->logincheck($name,$password);
 
         if($check){
-            echo  $this->session->userdata('staff_pk') ;
+//            echo  $this->session->userdata('staff_pk') ;
             redirect('MyController/index','refresh');
         }
         else{
@@ -43,6 +43,11 @@ class Welcome extends CI_Controller {
 
         }
 
+    }
+
+    public function register()
+    {
+        $this->load->view('register');
     }
 
 

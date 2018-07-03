@@ -5,6 +5,7 @@ class InsertModel extends CI_Model{
         if(! $this->session->userdata('requestbill_pk') ) {
             $dat = array(
                 'staff_pk' => $this->session->userdata('staff_pk'),
+                'department_pk' => $this->session->userdata('department_pk'),
                 'requestbill_status' => false,
                 'requestbill_buystatus' => false
             );
@@ -38,7 +39,11 @@ class InsertModel extends CI_Model{
 
         $this->db->insert('items',$data);
 
-        $checkitem = $this->db->select('*')->from('accs')->where('acc_name',$name)->get()->result();
+        $checkitem = $this->db->select('*')
+            ->from('accs')
+            ->where('acc_name',$name)
+            ->where('department_pk',$this->session->userdata('department_pk'))
+            ->get()->result();
 
         if(! $checkitem)
         {
@@ -111,7 +116,7 @@ class InsertModel extends CI_Model{
 
         $data = array(
             'acc_pk' => $acc_pk ,
-            'number' => $item_number
+            'number' => $item_number ,
         );
 
         $this->db->insert('stocks_in',$data);

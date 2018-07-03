@@ -5,7 +5,8 @@
         <div class="row">
             <div class="col-md-8">
                 <table class="table" >
-                    <tr>
+
+                    <tr class="warning">
                         <th>ชื่อสินค้า</th>
                         <th>จำนวน</th>
                         <th>ราคา</th>

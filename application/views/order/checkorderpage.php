@@ -5,7 +5,7 @@
         <div class="row">
             <div id="table" class="col-md-8">
                 <table class="table" >
-                    <tr>
+                    <tr class="warning">
                         <th>เวลาที่ทำการสั่งซื้อ</th>
                         <th>สถานะการอนุมัติ</th>
                         <th>สถานะการซื้อของ</th>
@@ -17,10 +17,12 @@
 
                     <tr v-for="item in requestbills">
                         <th>{{item.requestbill_time}}</th>
-                        <th>{{item.requestbill_status}}</th>
-                        <th>{{item.requestbill_buystatus}}</th>
+                        <th v-if="item.requestbill_status == 1">อนุมัติให้ซื้อของได้</th>
+                        <th v-else>ยังไม่ได้รับการอนุมัติ</th>
+                        <th v-if="item.requestbill_buystatus == 1">ทำการซื้อสินค้าเสร็จสิ้น</th>
+                        <th v-else>รอการซื้อสินค้า</th>
                         <th>
-                            <button v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+                            <button v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
                                 ดูสินค้า
                             </button>
                         </th>
@@ -54,7 +56,7 @@
                         <div class="modal-body">
                             <div class="col-md-12">
                                 <table class="table" >
-                                    <tr>
+                                    <tr class="warning">
                                         <th>ชื่อสินค้า</th>
                                         <th>จำนวน</th>
                                         <th>ราคา</th>
@@ -72,7 +74,7 @@
                                         <th>{{item.price}}</th>
                                         <th>{{item.item_place}}</th>
                                         <th>{{item.item_before}}</th>
-                                        <th><button class="btn btn-secondary" v-on:click="viewnote(item.item_pk,item.requestbill_pk)" >ดูหมายเหตุ</button></th>
+                                        <th><button class="btn btn-info" v-on:click="viewnote(item.item_pk,item.requestbill_pk)" >ดูหมายเหตุ</button></th>
                                         <th><button class="btn btn-primary" v-on:click="edit(item.item_pk,item.name,item.price,item.item_number,item.item_place,item.item_before)" >แก้ไข</button></th>
                                         <th><button class="btn btn-danger" v-on:click="delitem(item.item_pk)">ลบ</button></th>
                                     </tr>

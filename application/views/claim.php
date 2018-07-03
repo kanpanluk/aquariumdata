@@ -5,7 +5,7 @@
         <div class="row">
             <div id="table" class="col-md-8">
                 <table class="table" >
-                    <tr>
+                    <tr class="warning">
                         <th>เวลาที่ทำการสั่งซื้อ</th>
                         <th>รหัสสินค้า</th>
                         <th>ชื่อสินค้า</th>

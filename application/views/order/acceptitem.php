@@ -5,23 +5,18 @@
         <div class="row">
             <div id="table" class="col-md-8">
                 <table class="table" >
-                    <tr>
+                    <tr class="warning">
                         <th>เวลาที่ทำการสั่งซื้อ</th>
                         <th>ดูสินค้า</th>
-                        <th>ยืนยันการรับสินค้า</th>
 
                     </tr>
 
                     <tr v-for="item in requestbills">
                         <th>{{item.requestbill_time}}</th>
                         <th>
-                            <button v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+                            <button v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
                                 ดูสินค้า
                             </button>
-                        </th>
-                        <th>
-                            <input type="checkbox" id="checkbox" v-on:click="update(item.requestbill_pk)">
-                            <label for="checkbox">false</label>
                         </th>
 
                     </tr>
@@ -46,7 +41,7 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <table class="table" >
-                            <tr>
+                            <tr class="warning">
                                 <th>ชื่อสินค้า</th>
                                 <th>จำนวน</th>
                                 <th>ราคา</th>
@@ -63,7 +58,9 @@
                                 <th>{{item.item_before}}</th>
                             </tr>
                         </table>
-
+                        ยืนยันการรับสินค้า
+                        <input type="checkbox" id="checkbox" v-on:click="update()">
+                        <label for="checkbox">false</label>
 
                     </div>
 
@@ -106,7 +103,7 @@
         methods : {
 
             view : function (requestbill_pk) {
-
+                this.requestbill_pk=requestbill_pk;
                 $.post("<?php echo site_url('QueryJSON/jsonEncodeItemsfromBill')?>",{requestbill_pk:requestbill_pk});
                 alert("ดูสินค้า");
                 var self=this;
@@ -122,10 +119,15 @@
 
             } ,
 
-            update : function (requestbill_pk) {
+            update : function () {
 
-                $.post("<?php echo site_url('UpdateData/updateAcceptbill_status')?>",{requestbill_pk:requestbill_pk});
+                $.post("<?php echo site_url('UpdateData/updateAcceptbill_status')?>",{requestbill_pk:this.requestbill_pk});
+                for (var i in this.items){
+                    $.post("<?php echo site_url('InsertData/getstocks')?>",{name:this.items[i].name,item_number:this.items[i].item_number});
+                }
+
                 location.reload();
+
             } ,
 
 

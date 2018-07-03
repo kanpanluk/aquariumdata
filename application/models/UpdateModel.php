@@ -69,14 +69,16 @@ class UpdateModel extends CI_Model{
         $table = $this->db->select('*')
             ->from('accs a')
             ->join('stocks s','s.acc_pk = a.acc_pk')
-            ->where('acc_name',$acc_name)->get()->result();
+            ->where('acc_name',$acc_name)
+            ->where('department_pk',$this->session->userdata('department_pk'))
+            ->get()->result();
 
         if($table){
             foreach ($table as $item) {
                 $acc_pk = $item->acc_pk;
                 $number = $item->number;
             }
-
+            if( $number - $item_number <0) return false;
             $this->db->set('number', $number - $item_number, false)
                 ->where('acc_pk', $acc_pk)
                 ->update('stocks');
@@ -98,7 +100,10 @@ class UpdateModel extends CI_Model{
             $this->db->set('item_number', $number - $item_number, false)
                 ->where('item_pk', $item_pk)
                 ->update('items');
-        }
+
+            return true ;
+        } else
+            return false;
 
     }
 

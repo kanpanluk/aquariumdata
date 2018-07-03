@@ -64,8 +64,14 @@ class UpdateData extends CI_Controller{
         $acc_name = $this->input->post('acc_name');
         $item_pk = $this->input->post('item_pk');
         $item_number = $this->input->post('item_number');
+        $note = $this->input->post('note');
+        $requestbill_pk = $this->input->post('requestbill_pk');
 
-        $this->UpdateModel->updatestocks($acc_name,$item_pk,$item_number);
+        $check = $this->UpdateModel->updatestocks($acc_name,$item_pk,$item_number);
+
+        if($check){
+            $this->InsertModel->addnewnote($requestbill_pk,$item_pk,$note);
+        }
 
     }
 }

@@ -5,7 +5,7 @@
         <div class="row">
             <div id="table" class="col-md-8">
                 <table class="table" >
-                    <tr>
+                    <tr class="warning">
                         <th>เวลาที่ทำการสั่งซื้อ</th>
                         <th>ดูสินค้า</th>
                         <th>ยืนยันใบสั่งซื้อสินค้า</th>
@@ -15,7 +15,7 @@
                     <tr v-for="item in requestbills">
                         <th>{{item.requestbill_time}}</th>
                         <th>
-                            <button v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+                            <button v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
                                 ดูสินค้า
                             </button>
                         </th>
@@ -46,7 +46,7 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <table class="table" >
-                            <tr>
+                            <tr class="warning">
                                 <th>ชื่อสินค้า</th>
                                 <th>จำนวน</th>
                                 <th>ราคา</th>

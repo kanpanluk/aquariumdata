@@ -5,7 +5,7 @@
         <div class="row">
             <div id="table" class="col-md-8">
                 <table class="table" >
-                    <tr>
+                    <tr class="warning">
                         <th>เวลาที่ทำการสั่งซื้อ</th>
                         <th>ยืนยันการซื้อสินค้า</th>
 
@@ -16,7 +16,7 @@
                     <tr v-for="item in requestbills">
                         <th>{{item.requestbill_time}}</th>
                         <th>
-                            <button v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+                            <button v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                                 ยืนยัน
                             </button>
                         </th>
@@ -44,7 +44,7 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <table class="table" >
-                            <tr>
+                            <tr class="warning">
                                 <th>ชื่อสินค้า</th>
                                 <th>จำนวน</th>
                                 <th>ราคา</th>
@@ -180,9 +180,6 @@
                 {
 
                     $.post("<?php echo site_url('UpdateData/confirmBuyeditems')?>",{buybill_time:this.buybill_time,buybill_price:this.buybill_price,items:this.items});
-                    for (var i in this.items){
-                        $.post("<?php echo site_url('InsertData/getstocks')?>",{name:this.items[i].name,item_number:this.items[i].item_number});
-                    }
                     location.reload();
                 }
 

@@ -5,7 +5,7 @@
         <div class="row">
             <div id="table" class="col-md-8">
                 <table class="table">
-                    <tr>
+                    <tr class="warning">
                         <th>เวลาที่ทำการสั่งซื้อ</th>
                         <th>ดูสินค้า</th>
 
@@ -14,7 +14,7 @@
                     <tr v-for="item in requestbills">
                         <th>{{item.requestbill_time}}</th>
                         <th>
-                            <button v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-secondary"
+                            <button v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-info"
                                     data-toggle="modal" data-target="#myModal">
                                 ดูสินค้า
                             </button>
@@ -25,20 +25,41 @@
             </div>
 
             <div class="col-lg-4">
-                <table class="table" id="stockstable">
-                    <tr>
-                        <th>ชื่อสินค้า</th>
-                        <th>จำนวนที่เหลือ</th>
+                <div id="stockstable">
+                    <div v-if="<?php echo $this->session->userdata('department_id')?> == 0">
+                        <table class="table">
+                            <tr>
+                                <th>แผนก</th>
+                                <th>ชื่อสินค้า</th>
+                                <th>จำนวนที่เหลือ</th>
 
-                    </tr>
+                            </tr>
 
-                    <tr v-for="item in stocks">
-                        <th>{{item.acc_name}}</th>
-                        <th>{{item.number}}</th>
+                            <tr v-for="item in stocks">
+                                <th>{{item.department_name}}</th>
+                                <th>{{item.acc_name}}</th>
+                                <th>{{item.number}}</th>
 
-                    </tr>
-                </table>
-                <button id="stocksbutton" v-on:click="viewtable()" type="button" class="btn btn-secondary">
+                            </tr>
+                        </table>
+                    </div>
+                    <div v-else>
+                        <table class="table">
+                            <tr>
+                                <th>ชื่อสินค้า</th>
+                                <th>จำนวนที่เหลือ</th>
+
+                            </tr>
+
+                            <tr v-for="item in stocks">
+                                <th>{{item.acc_name}}</th>
+                                <th>{{item.number}}</th>
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <button id="stocksbutton" v-on:click="viewtable()" type="button" class="btn btn-info">
                     ดูสต๊อกสินค้า
                 </button>
             </div>
@@ -62,7 +83,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <table class="table">
-                                <tr>
+                                <tr class="warning">
                                     <th>ชื่อสินค้า</th>
                                     <th>จำนวน</th>
                                     <th>ราคา</th>
@@ -196,15 +217,12 @@
                 }
                 else {
                     alert('เพิ่มหมายเหตุเสร็จสิ้น');
-                    $.post("<?php echo site_url('InsertData/getnotes')?>", {
-                        note: this.note,
-                        requestbill_pk: this.requestbill_pk,
-                        item_pk: this.item_pk
-                    });
                     $.post("<?php echo site_url('UpdateData/getstocks')?>", {
                         item_pk: this.item_pk,
                         item_number: this.item_number,
-                        acc_name: this.acc_name
+                        acc_name: this.acc_name,
+                        note: this.note,
+                        requestbill_pk: this.requestbill_pk
                     });
                     location.reload();
                 }
