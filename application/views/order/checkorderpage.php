@@ -22,15 +22,21 @@
                         <th v-if="item.requestbill_buystatus == 1">ทำการซื้อสินค้าเสร็จสิ้น</th>
                         <th v-else>รอการซื้อสินค้า</th>
                         <th>
-                            <button v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+                            <button  v-on:click="view(item.requestbill_pk)" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" >
                                 ดูสินค้า
                             </button>
                         </th>
+
                         <th>
                             <button v-on:click="del(item.requestbill_pk)" class="btn btn-danger" >
                                 ลบ
                             </button>
                         </th>
+                        <th v-for="n in note" v-if="item.requestbill_pk==n.requestbill_pk" >
+                           <kbd>หมายเหตุ</kbd>
+                        </th>
+
+
 
                     </tr>
                 </table>
@@ -177,6 +183,7 @@
             })
             $.getJSON("<?php echo site_url('QueryJSON/jsonEncodeNotes')?>",function (data) {
                 self.note = data
+
             });
 
 
@@ -234,15 +241,15 @@
                         if(this.note[i].note_note && this.note[i].item_pk == item_pk && this.note[i].requestbill_pk == requestbill_pk){
                             alert(this.note[i].note_note);
                         }
-                        else{
-                            alert('ไม่มีหมายเหตุ');
-                        }
+
                 }
 
             }
 
 
         }
+
+
 
     })
 

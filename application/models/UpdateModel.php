@@ -64,13 +64,22 @@ class UpdateModel extends CI_Model{
         $this->db->where('item_pk',$item_pk)->update('items',$data);
     }
 
-    function updatestocks($acc_name,$item_pk,$item_number)
+    function updatestocks($acc_name,$item_pk,$item_number,$requestbill_pk)
     {
+        $tmp = $this->db->select('*')
+            ->from('requestbills r')
+            ->join('staffs s','s.staff_pk = r.staff_pk')
+            ->get()->result();
+
+        foreach ($tmp as $i) {
+            $department_pk = $i->department_pk;
+        }
+
         $table = $this->db->select('*')
             ->from('accs a')
             ->join('stocks s','s.acc_pk = a.acc_pk')
             ->where('acc_name',$acc_name)
-            ->where('department_pk',$this->session->userdata('department_pk'))
+            ->where('department_pk',$department_pk)
             ->get()->result();
 
         if($table){

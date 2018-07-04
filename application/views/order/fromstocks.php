@@ -26,7 +26,7 @@
 
             <div class="col-lg-4">
                 <div id="stockstable">
-                    <div v-if="<?php echo $this->session->userdata('department_id')?> == 0">
+                    <div v-if="<?php echo $this->session->userdata('department_id')?> == 0 || <?php echo $this->session->userdata('department_id')?> == 1">
                         <table class="table">
                             <tr>
                                 <th>แผนก</th>

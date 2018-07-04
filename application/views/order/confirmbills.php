@@ -9,6 +9,7 @@
                         <th>เวลาที่ทำการสั่งซื้อ</th>
                         <th>ดูสินค้า</th>
                         <th>ยืนยันใบสั่งซื้อสินค้า</th>
+                        <th>ลบ</th>
 
                     </tr>
 
@@ -23,7 +24,11 @@
                             <input type="checkbox" id="checkbox" v-on:click="update(item.requestbill_pk)">
                             <label for="checkbox">false</label>
                         </th>
-
+                        <th>
+                            <button v-on:click="del(item.requestbill_pk)" class="btn btn-danger" >
+                                ลบ
+                            </button>
+                        </th>
                     </tr>
                 </table>
             </div>
@@ -121,6 +126,12 @@
             update : function (requestbill_pk) {
 
                 $.post("<?php echo site_url('UpdateData/confirmRequestbills')?>",{requestbill_pk:requestbill_pk});
+                location.reload();
+            } ,
+
+            del : function (requestbill_pk) {
+                alert("ทำการลบใบสั่งนี้");
+                $.post("<?php echo site_url('DeleteData/deleterequestbills')?>",{requestbill_pk:requestbill_pk});
                 location.reload();
             } ,
 
